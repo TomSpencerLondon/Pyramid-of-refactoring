@@ -16,11 +16,13 @@ public class RealEstateFinder {
     }
 
     public List<RealEstate> byBelowArea(float maxBuildingArea){
+        BelowAreaSpec belowAreaSpec = new BelowAreaSpec(maxBuildingArea);
+
         List<RealEstate> foundRealEstates = new ArrayList<>();
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (estate.getBuildingArea() < maxBuildingArea)
+            if (belowAreaSpec.isSatisfiedBy(estate))
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;
