@@ -4,6 +4,7 @@
  */
 package pl.refactoring.interpreter.basement;
 
+import pl.refactoring.interpreter.basement.specs.AndSpec;
 import pl.refactoring.interpreter.basement.specs.BelowAreaSpec;
 
 import java.util.ArrayList;

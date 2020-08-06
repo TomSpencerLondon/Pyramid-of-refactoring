@@ -1,4 +1,7 @@
-package pl.refactoring.interpreter.basement;
+package pl.refactoring.interpreter.basement.specs;
+
+import pl.refactoring.interpreter.basement.RealEstate;
+import pl.refactoring.interpreter.basement.Spec;
 
 public class AndSpec implements Spec {
 
