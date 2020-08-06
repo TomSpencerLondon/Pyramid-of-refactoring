@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import pl.refactoring.interpreter.emerging.specs.PlacementSpec;
 
 public class RealEstateFinder {
     private List<RealEstate> repository;
@@ -40,27 +41,11 @@ public class RealEstateFinder {
     }
 
     public List<RealEstate> byPlacement(EstatePlacement placement){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
-
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (estate.getPlacement().equals(placement))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+        return bySpec(new PlacementSpec(placement));
     }
 
     public List<RealEstate> byAvoidingPlacement(EstatePlacement placement){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
-
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (! estate.getPlacement().equals(placement))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+        return bySpec(new NotSpec(new PlacementSpec(placement)));
     }
 
     public List<RealEstate> byAreaRange(float minArea, float maxArea){
@@ -93,9 +78,10 @@ public class RealEstateFinder {
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (estate.getType().equals(type) && estate.getPlacement().equals(placement) && estate.getMaterial().equals(material))
+            if (estate.getType().equals(type) && new PlacementSpec(placement).isSatisfiedBy(estate) && estate.getMaterial().equals(material))
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;
     }
+
 }
