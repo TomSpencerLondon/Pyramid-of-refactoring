@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import pl.refactoring.interpreter.basement.specs.MaterialSpec;
 
 public class RealEstateFinder {
 
@@ -30,8 +31,7 @@ public class RealEstateFinder {
     }
 
     public List<RealEstate> byMaterial(EstateMaterial material){
-        MaterialSpec materialSpec = new MaterialSpec(material);
-        return bySpec(materialSpec);
+        return bySpec(new MaterialSpec(material));
     }
 
     private boolean isSatisfiedBy(EstateMaterial material, RealEstate estate) {
