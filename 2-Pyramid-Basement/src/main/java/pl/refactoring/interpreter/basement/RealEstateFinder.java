@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RealEstateFinder {
+
     private List<RealEstate> repository;
 
     public RealEstateFinder(List<RealEstate> repository) {
@@ -29,15 +30,12 @@ public class RealEstateFinder {
     }
 
     public List<RealEstate> byMaterial(EstateMaterial material){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
+        MaterialSpec materialSpec = new MaterialSpec(material);
+        return bySpec(materialSpec);
+    }
 
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (estate.getMaterial().equals(material))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+    private boolean isSatisfiedBy(EstateMaterial material, RealEstate estate) {
+        return new MaterialSpec(material).isSatisfiedBy(estate);
     }
 
     public List<RealEstate> byMaterialBelowArea(EstateMaterial material, float maxBuildingArea){
@@ -46,7 +44,7 @@ public class RealEstateFinder {
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (estate.getMaterial().equals(material) && estate.getBuildingArea() < maxBuildingArea)
+            if (new MaterialSpec(material).isSatisfiedBy(estate) && estate.getBuildingArea() < maxBuildingArea)
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;
@@ -106,7 +104,8 @@ public class RealEstateFinder {
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (estate.getType().equals(type) && estate.getPlacement().equals(placement) && estate.getMaterial().equals(material))
+            if (estate.getType().equals(type) && estate.getPlacement().equals(placement) && new MaterialSpec(material)
+                .isSatisfiedBy(estate))
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;
