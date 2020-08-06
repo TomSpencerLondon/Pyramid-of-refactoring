@@ -11,6 +11,7 @@ import static pl.refactoring.interpreter.completed.spec.Specs.not;
 import static pl.refactoring.interpreter.completed.spec.Specs.placedIn;
 import static pl.refactoring.interpreter.completed.spec.Specs.ofType;
 
+import java.util.function.Predicate;
 import pl.refactoring.interpreter.completed.spec.*;
 
 import java.util.List;
@@ -23,9 +24,9 @@ public class RealEstateFinder {
         this.repository = repository;
     }
 
-    public List<RealEstate> bySpec(Spec spec) {
+    public List<RealEstate> bySpec(Predicate<RealEstate> spec) {
         return repository.stream()
-                .filter(spec::isSatisfiedBy)
+                .filter(spec::test)
                 .collect(Collectors.toList());
     }
 
@@ -70,8 +71,10 @@ public class RealEstateFinder {
 
     @Deprecated
     public List<RealEstate> byTypePlacementMaterial(EstateType type, EstatePlacement placement, EstateMaterial material){
-        return bySpec(new AndSpecBuilder().withSpec(ofType(type))
+        return bySpec(new AndSpecBuilder()
+            .withSpec(ofType(type))
             .withSpec(placedIn(placement))
-            .withSpec(ofMaterial(material)).createAndSpec());
+            .withSpec(ofMaterial(material))
+            .createAndSpec());
     }
 }
