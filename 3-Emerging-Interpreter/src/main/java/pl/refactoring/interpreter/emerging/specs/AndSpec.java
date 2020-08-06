@@ -11,10 +11,6 @@ import pl.refactoring.interpreter.emerging.Spec;
 public class AndSpec implements Spec {
     private Spec[] specs;
 
-    public AndSpec(Spec firstSpec, Spec secondSpec) {
-        this(new Spec[]{firstSpec, secondSpec});
-    }
-
     public AndSpec(Spec... specs) {
         this.specs = specs;
     }
