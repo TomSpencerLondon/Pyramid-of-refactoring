@@ -59,18 +59,12 @@ public class RealEstateFinder {
         return bySpec(new TypeSpec(type));
     }
 
-    public List<RealEstate> byVerySpecificCriteria(EstateType type, EstatePlacement placement, EstateMaterial material){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
+    public List<RealEstate> byTypePlacementMaterial(EstateType type, EstatePlacement placement, EstateMaterial material){
+        Spec typeSpec = new TypeSpec(type);
+        Spec placementSpec = new PlacementSpec(placement);
+        Spec materialSpec = new MaterialSpec(material);
 
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (new TypeSpec(type).isSatisfiedBy(estate) &&
-                new PlacementSpec(placement).isSatisfiedBy(estate) &&
-                estate.getMaterial().equals(material))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+        return bySpec(new AndSpec(typeSpec, placementSpec, materialSpec));
     }
 
 }
