@@ -44,7 +44,8 @@ public class RealEstateFinder {
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (new MaterialSpec(material).isSatisfiedBy(estate) && estate.getBuildingArea() < maxBuildingArea)
+            if (new MaterialSpec(material).isSatisfiedBy(estate) &&
+                new BelowAreaSpec(maxBuildingArea).isSatisfiedBy(estate))
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;
