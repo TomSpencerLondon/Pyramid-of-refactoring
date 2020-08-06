@@ -1,7 +1,6 @@
 package pl.refactoring.interpreter.completed.spec;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import pl.refactoring.interpreter.completed.Spec;
 
@@ -9,8 +8,8 @@ public class AndSpecBuilder {
 
   private List<Spec> specs = new ArrayList<>();
 
-  public AndSpecBuilder withSpecs(Spec... specs) {
-    this.specs = Arrays.asList(specs);
+  public AndSpecBuilder withSpec(Spec spec) {
+    specs.add(spec);
     return this;
   }
 

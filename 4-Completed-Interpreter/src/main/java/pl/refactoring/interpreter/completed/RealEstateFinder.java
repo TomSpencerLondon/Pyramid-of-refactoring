@@ -44,7 +44,8 @@ public class RealEstateFinder {
         Spec materialSpec = ofMaterial(material);
         Spec belowAreaSpec = belowArea(maxBuildingArea);
 
-        return bySpec(new AndSpecBuilder().withSpecs(materialSpec, belowAreaSpec).createAndSpec());
+        return bySpec(new AndSpecBuilder().withSpec(materialSpec)
+            .withSpec(belowAreaSpec).createAndSpec());
     }
 
     @Deprecated
@@ -68,7 +69,9 @@ public class RealEstateFinder {
     }
 
     @Deprecated
-    public List<RealEstate> byVerySpecificCriteria(EstateType type, EstatePlacement placement, EstateMaterial material){
-        return bySpec(new AndSpecBuilder().withSpecs(ofType(type), placedIn(placement), ofMaterial(material)).createAndSpec());
+    public List<RealEstate> byTypePlacementMaterial(EstateType type, EstatePlacement placement, EstateMaterial material){
+        return bySpec(new AndSpecBuilder().withSpec(ofType(type))
+            .withSpec(placedIn(placement))
+            .withSpec(ofMaterial(material)).createAndSpec());
     }
 }
