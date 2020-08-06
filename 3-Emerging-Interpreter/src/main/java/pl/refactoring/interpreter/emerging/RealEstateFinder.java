@@ -5,6 +5,7 @@
 package pl.refactoring.interpreter.emerging;
 
 import pl.refactoring.interpreter.emerging.specs.AndSpec;
+import pl.refactoring.interpreter.emerging.specs.AreaRangeSpec;
 import pl.refactoring.interpreter.emerging.specs.BelowAreaSpec;
 import pl.refactoring.interpreter.emerging.specs.MaterialSpec;
 
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import pl.refactoring.interpreter.emerging.specs.NotSpec;
 import pl.refactoring.interpreter.emerging.specs.PlacementSpec;
 
 public class RealEstateFinder {
+
     private List<RealEstate> repository;
 
     public RealEstateFinder(List<RealEstate> repository) {
@@ -49,27 +52,11 @@ public class RealEstateFinder {
     }
 
     public List<RealEstate> byAreaRange(float minArea, float maxArea){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
-
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (estate.getBuildingArea() >= minArea && estate.getBuildingArea() <= maxArea)
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+        return bySpec(new AreaRangeSpec(minArea, maxArea));
     }
 
     public List<RealEstate> byType(EstateType type){
-        List<RealEstate> foundRealEstates = new ArrayList<>();
-
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (estate.getType().equals(type))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+        return bySpec(new TypeSpec(type));
     }
 
     public List<RealEstate> byVerySpecificCriteria(EstateType type, EstatePlacement placement, EstateMaterial material){
@@ -78,7 +65,7 @@ public class RealEstateFinder {
         Iterator<RealEstate> estates = repository.iterator();
         while (estates.hasNext()) {
             RealEstate estate = estates.next();
-            if (estate.getType().equals(type) && new PlacementSpec(placement).isSatisfiedBy(estate) && estate.getMaterial().equals(material))
+            if (new TypeSpec(type).isSatisfiedBy(estate) && new PlacementSpec(placement).isSatisfiedBy(estate) && estate.getMaterial().equals(material))
                 foundRealEstates.add(estate);
         }
         return foundRealEstates;

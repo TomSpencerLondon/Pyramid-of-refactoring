@@ -1,4 +1,7 @@
-package pl.refactoring.interpreter.emerging;
+package pl.refactoring.interpreter.emerging.specs;
+
+import pl.refactoring.interpreter.emerging.RealEstate;
+import pl.refactoring.interpreter.emerging.Spec;
 
 public class NotSpec implements Spec {
 
