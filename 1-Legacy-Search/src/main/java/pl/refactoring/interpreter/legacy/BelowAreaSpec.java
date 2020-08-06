@@ -1,6 +1,6 @@
 package pl.refactoring.interpreter.legacy;
 
-public class BelowAreaSpec {
+public class BelowAreaSpec implements Spec {
 
   private float maxBuildingArea;
 
@@ -8,7 +8,8 @@ public class BelowAreaSpec {
     this.maxBuildingArea = maxBuildingArea;
   }
 
-  boolean isSatisfiedBy(RealEstate estate) {
+  @Override
+  public boolean isSatisfiedBy(RealEstate estate) {
     return estate.getBuildingArea() < maxBuildingArea;
   }
 }

@@ -3,6 +3,7 @@ package pl.refactoring.interpreter.legacy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Copyright (c) 2020 IT Train Wlodzimierz Krakowski (www.refactoring.pl)
@@ -15,17 +16,14 @@ public class RealEstateFinder {
         this.repository = repository;
     }
 
-    public List<RealEstate> byBelowArea(float maxBuildingArea){
-        BelowAreaSpec belowAreaSpec = new BelowAreaSpec(maxBuildingArea);
+    public List<RealEstate> bySpec(Spec spec) {
+        return repository.stream()
+            .filter(spec::isSatisfiedBy)
+            .collect(Collectors.toList());
+    }
 
-        List<RealEstate> foundRealEstates = new ArrayList<>();
-        Iterator<RealEstate> estates = repository.iterator();
-        while (estates.hasNext()) {
-            RealEstate estate = estates.next();
-            if (belowAreaSpec.isSatisfiedBy(estate))
-                foundRealEstates.add(estate);
-        }
-        return foundRealEstates;
+    public List<RealEstate> byBelowArea(float maxBuildingArea){
+        return bySpec(new BelowAreaSpec(maxBuildingArea));
     }
 
     public List<RealEstate> byMaterial(EstateMaterial material){
