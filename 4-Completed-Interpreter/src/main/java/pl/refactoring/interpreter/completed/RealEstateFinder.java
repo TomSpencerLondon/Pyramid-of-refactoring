@@ -5,11 +5,11 @@
 package pl.refactoring.interpreter.completed;
 
 import static pl.refactoring.interpreter.completed.spec.Specs.ofAreaRange;
-import static pl.refactoring.interpreter.completed.spec.BelowAreaSpec.belowArea;
-import static pl.refactoring.interpreter.completed.spec.MaterialSpec.ofMaterial;
-import static pl.refactoring.interpreter.completed.spec.NotSpec.not;
-import static pl.refactoring.interpreter.completed.spec.PlacementSpec.placedIn;
-import static pl.refactoring.interpreter.completed.spec.TypeSpec.ofType;
+import static pl.refactoring.interpreter.completed.spec.Specs.belowArea;
+import static pl.refactoring.interpreter.completed.spec.Specs.ofMaterial;
+import static pl.refactoring.interpreter.completed.spec.Specs.not;
+import static pl.refactoring.interpreter.completed.spec.Specs.placedIn;
+import static pl.refactoring.interpreter.completed.spec.Specs.ofType;
 
 import pl.refactoring.interpreter.completed.spec.*;
 

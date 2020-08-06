@@ -8,15 +8,11 @@ import pl.refactoring.interpreter.completed.EstateType;
 import pl.refactoring.interpreter.completed.RealEstate;
 import pl.refactoring.interpreter.completed.Spec;
 
-public class TypeSpec implements Spec {
+class TypeSpec implements Spec {
     private EstateType type;
 
-    private TypeSpec(EstateType type) {
+    TypeSpec(EstateType type) {
         this.type = type;
-    }
-
-    public static TypeSpec ofType(EstateType type) {
-        return new TypeSpec(type);
     }
 
     public boolean isSatisfiedBy(RealEstate estate) {
